@@ -91,7 +91,7 @@
                         var matches = filenameRegex.exec(disposition);
 
                         if (matches != null && matches[1]) {
-                            fileName = decodeURI(matches[1].replace(/['"]/g, ""));
+                            fileName = decodeURI(matches[1].replace(/['"]/g, "")) + ".jpg";
                         }
                     }
 
