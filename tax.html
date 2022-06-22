@@ -64,8 +64,8 @@
                     data : formData,
                     datatype: "JSON",
                     success : function(data) {
-                        var data = JSON.parse(obj);
-                        $.each(data.Files, function(key, value){
+                        var obj = JSON.parse(data);
+                        $.each(obj.Files, function(key, value){
                             alert('key:' + key + ' / ' + 'value:' + value);
                         });
                         console.log(data);
