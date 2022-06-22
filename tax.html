@@ -63,8 +63,7 @@
                     type : 'POST', 
                     data : formData,
                     success : function(data) {
-                        var obj = JSON.parse(data);
-                        $.each(obj, function(key, value){
+                        $.each(data, function(key, value){
                             alert('key:' + key + ' / ' + 'value:' + value);
                         });
                         console.log(data);
