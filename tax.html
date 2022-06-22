@@ -63,7 +63,15 @@
                     type : 'POST', 
                     data : formData,
                     success : function(data) {
-                        $.each(data.Files, function(key, value){
+                        $.each(data.Files, function(key){
+//                             vimg = $('<img>', { 
+//                                 'src' : data.Files[key].Url,
+//                                 'width' : '100px',
+//                                 'height' : '100px'
+//                             });
+//                             $(vimg).appendTo('#result3');
+                            alert(data.Files[key].Url);
+                            
                             alert('key:' + key + ' / ' + 'value:' + value);
                         });
                         console.log(data);
