@@ -64,17 +64,16 @@
                     data : formData,
                     success : function(data) {
                         var jsonData = data.Files; 
-                        var obj = JSON.parse(jsonData);
-                        alert(obj);
-                        for(var i = 0; i < obj.length; i++) {
-//                             vimg = $('<img>', { 
-//                                 'src' : data.Files[key].Url,
-//                                 'width' : '100px',
-//                                 'height' : '100px'
-//                             });
-//                             $(vimg).appendTo('#result3');
+                        alert(jsonData);
+//                         for(var i = 0; i < obj.length; i++) {
+// //                             vimg = $('<img>', { 
+// //                                 'src' : data.Files[key].Url,
+// //                                 'width' : '100px',
+// //                                 'height' : '100px'
+// //                             });
+// //                             $(vimg).appendTo('#result3');
                             
-                        }
+//                         }
                         console.log(data);
                         $("#loading").hide();
                     }, // success 
