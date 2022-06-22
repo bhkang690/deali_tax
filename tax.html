@@ -74,19 +74,17 @@
                         img.download = url.createObjectURL(data);
                         
                         if (xhr.readyState == 4 && xhr.status == 200) {
-                            // 성공했을때만 파일 다운로드 처리하고
-                            let disposition = xhr.getResponseHeader('Content-Disposition'); 
-                            let filename; 
-                            if (disposition && disposition.indexOf('attachment') !== -1) { 
-                                let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/; 
-                                let matches = filenameRegex.exec(disposition); 
-                                if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, ''); 
+                            var fileName = "";
+                            var disposition = xhr.getResponseHeader("Content-Disposition");
+                            
+                            if (disposition && disposition.indexOf("attachment") !== -1) {
+                                var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                                var matches = filenameRegex.exec(disposition);
+
+                                if (matches != null && matches[1]) {
+                                    fileName = decodeURI(matches[1].replace(/['"]/g, ""));
+                                }
                             }
-                            let blob = new Blob([data]); 
-                            let link = document.createElement('a'); 
-                            link.href = window.URL.createObjectURL(blob); 
-                            link.download = filename; 
-                            link.click();
                         } else {   
                             
                         }
