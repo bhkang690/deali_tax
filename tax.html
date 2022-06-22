@@ -2,7 +2,8 @@
 <html>
     <head>
         <title>Convert API snippet</title>
-        <script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script type="text/javascript">
             function getParameter(name) {
                 name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
                 var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -10,12 +11,11 @@
                 return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
             }
             
+
             var pdfPath = getParameter("path");
-            var inputPath = document.getElementById("File");
-            inputPath.value(pdfPath);
-            
-            var form = document.convertapiForm;
-            form.submit();
+              $(document).ready(function() {
+                $('#File').val(pdfPath);
+            });
         </script>
     </head>
     <body>
