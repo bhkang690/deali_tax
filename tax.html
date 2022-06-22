@@ -63,17 +63,18 @@
                     type : 'POST', 
                     data : formData,
                     success : function(data) {
-                        $.each(data.Files, function(key){
+                        var jsonData = data.Files; 
+                        var obj = JSON.parse(jsonData);
+                        for(var i = 0; i < obj.lenth; i++) {
 //                             vimg = $('<img>', { 
 //                                 'src' : data.Files[key].Url,
 //                                 'width' : '100px',
 //                                 'height' : '100px'
 //                             });
 //                             $(vimg).appendTo('#result3');
-                            alert(data.Files[key].Url);
                             
-                            alert('key:' + key + ' / ' + 'value:' + value);
-                        });
+                            console.log(obj[i]);
+                        }
                         console.log(data);
                         $("#loading").hide();
                     }, // success 
