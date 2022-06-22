@@ -36,6 +36,101 @@
             top:0;
             left:0;
         }
+
+.button {
+    --background: #2B3044;
+    --background-hover: #1E2235;
+    --text: #fff;
+    --icon: #fff;
+    --particle: #fff;
+    display: flex;
+    outline: none;
+    cursor: pointer;
+    border: 0;
+    min-width: 113px;
+    padding: 8px 20px 8px 12px;
+    margin: 5px;
+    border-radius: 11px;
+    line-height: 24px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--b, var(--background));
+    transition: transform .3s, background .4s;
+    transform: scale(var(--scale, 1)) translateZ(0);
+    &:active {
+        --scale: .95;
+    }
+    &:hover {
+        --b: var(--background-hover);
+    }
+    .icon {
+        --arrow-y: 0;
+        --arrow-rotate: 135;
+        --arrow-top: 10px;
+        width: 24px;
+        height: 24px;
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 8px;
+        pointer-events: none;
+        .dot {
+            border-radius: 50%;
+            background: #fff;
+            background: var(--particle);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 4px;
+        }
+        .arrow,
+        .line {
+            position: absolute;
+            z-index: 1;
+        }
+        .arrow {
+            left: 11px;
+            top: 4px;
+            width: 2px;
+            height: 12px;
+            border-radius: 1px;
+            background: var(--icon);
+            transform: translateY(calc(var(--arrow-y) * 1px)) translateZ(0);
+            &:before,
+            &:after {
+                content: '';
+                width: 2px;
+                height: 7px;
+                position: absolute;
+                left: 0;
+                top: var(--arrow-top);
+                border-radius: 1px;
+                background: inherit;
+                transform-origin: 1px 1px;
+                transform: rotate(var(--r, calc(var(--arrow-rotate) * 1deg)));
+            }
+            &:after {
+                --r: calc(var(--arrow-rotate) * -1deg);
+            }
+        }
+        .line {
+            width: 24px;
+            height: 24px;
+            display: block;
+            left: 0;
+            top: 7px;
+            fill: none;
+            stroke: var(--icon);
+            stroke-width: 2;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+    }
+}
+
         </style>
 
         <div id="loading">
@@ -63,17 +158,18 @@
                     type : 'POST', 
                     data : formData,
                     success : function(data) {
-                        var jsonData = data.Files; 
-                        alert(jsonData);
-//                         for(var i = 0; i < obj.length; i++) {
-// //                             vimg = $('<img>', { 
-// //                                 'src' : data.Files[key].Url,
-// //                                 'width' : '100px',
-// //                                 'height' : '100px'
-// //                             });
-// //                             $(vimg).appendTo('#result3');
-                            
-//                         }
+                        var jsonData = data.Files;
+
+                        for(var i = 0; i < jsonData.length; i++) {
+                            vimg = $('<img>', { 
+                                'src' : jsonData[i].Url,
+                                'width' : '100%'
+                            });
+                            $(vimg).appendTo('#result');
+                            var a = $("<a>").attr("href", jsonData[i].Url).text(jsonData[i].FileName).addClass("button").append('<br />').appendTo("#download");
+                            console.log(jsonData[i]);
+                            var a = "";
+                        }
                         console.log(data);
                         $("#loading").hide();
                     }, // success 
@@ -88,11 +184,12 @@
         </script>
     </head>
     <body>
-        <img id="img" width="100%" download>
+        <div id="download"></div>
+        <div id="result"></div>
         <form action="https://v2.convertapi.com/convert/pdf/to/jpg?Secret=ARqASJ2y8g0EL9Yl&download=attachment" id="convertapiForm" method="post" enctype="multipart/form-data">
             <input type="hidden" name="ImageResolution" value="400"/>
             <input type="hidden" name="PageRange" value="1-20"/>
-            <input type="hidden" id="File" name="File" value="https://payment-s3-settlement.sinsang.market/2022/04/individual_pdf/sinsangmarket/d8c51be39ea8e12fa093677f836046a91871b87997acc63c581c86a48e21178b/2022%EB%85%8404%EC%9B%94%EB%8F%84%EB%A7%A4%EC%84%B8%EA%B8%88%EA%B3%84%EC%82%B0%EC%84%9C.pdf"/>
+            <input type="hidden" id="File" name="File"/>
         </form>
     </body>
 </html>
