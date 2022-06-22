@@ -65,11 +65,10 @@
                     datatype: "JSON",
                     success : function(data) {
                         var data = JSON.parse(obj);
-                        $.each(data, function(key, value){
+                        $.each(data.Files, function(key, value){
                             alert('key:' + key + ' / ' + 'value:' + value);
                         });
                         console.log(data);
-                        console.log(xhr);
                         $("#loading").hide();
                     }, // success 
 
