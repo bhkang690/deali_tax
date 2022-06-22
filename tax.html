@@ -1,8 +1,14 @@
 <!doctype html>
 <html>
-    <head><title>Convert API snippet</title></head>
+    <head>
+        <title>Convert API snippet</title>
+        <script>
+            var pdfPath = getParameter("path");
+            alert(pdfPath);
+        </script>
+    </head>
     <body>
-        <form action="https://v2.convertapi.com/convert/pdf/to/jpg?Secret=ARqASJ2y8g0EL9Yl&download=attachment" method="post" enctype="multipart/form-data">
+        <form action="https://v2.convertapi.com/convert/pdf/to/jpg?Secret=ARqASJ2y8g0EL9Yl&download=attachment" method="post">
             <input type="hidden" name="File" value="https://payment-s3-settlement.sinsang.market/2022/04/individual_pdf/sinsangmarket/d8c51be39ea8e12fa093677f836046a91871b87997acc63c581c86a48e21178b/2022%EB%85%8404%EC%9B%94%EB%8F%84%EB%A7%A4%EC%84%B8%EA%B8%88%EA%B3%84%EC%82%B0%EC%84%9C.pdf"/>
             <input type="submit" value="Convert file"/>
         </form>
