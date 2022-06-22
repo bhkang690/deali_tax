@@ -2,6 +2,46 @@
 <html>
     <head>
         <title>Convert API snippet</title>
+        <style>
+        #loading{
+        display:none;
+        }
+
+        #loading .loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 2000;
+            margin: -75px 0 0 -60px;
+            border: 16px solid rgb(244, 244, 244, 0.3);
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        #loading .overay{
+          position:fixed;
+            width:100vw;
+            height:100vh;
+            background:rgba(0,0,0,0.5);
+            z-index:1100;
+            display:block;
+            top:0;
+        }
+        </style>
+
+        <div id="loading">
+            <div class="loader fade-in"></div>
+            <div class="overay"></div>
+        </div>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script type="text/javascript">
             function getParameter(name) {
@@ -15,12 +55,28 @@
             var pdfPath = getParameter("path");
             $(document).ready(function() {
                 $('#File').val(pdfPath);
-                $("#convertapiForm").submit();
+                
+                var formData = $("#convertapiForm").serialize();
+                $("#loading").show();
+                $.ajax({
+                    cache : false,
+                    url : "https://v2.convertapi.com/convert/pdf/to/jpg?Secret=ARqASJ2y8g0EL9Yl&download=attachment", // 요기에
+                    type : 'POST', 
+                    data : formData, 
+                    success : function(data) {
+                        $("#loading").hide();
+                    }, // success 
+
+                    error : function(xhr, status) {
+                        alert(xhr + " : " + status);
+                        $("#loading").hide();
+                    }
+                }); // $.ajax */
             });
         </script>
     </head>
     <body>
-        <form action="https://v2.convertapi.com/convert/pdf/to/jpg?Secret=ARqASJ2y8g0EL9Yl&download=attachment" id="convertapiForm" method="post" enctype="multipart/form-data">
+        <form id="convertapiForm" method="post" enctype="multipart/form-data">
             <input type="hidden" id="File" name="File" value="https://payment-s3-settlement.sinsang.market/2022/04/individual_pdf/sinsangmarket/d8c51be39ea8e12fa093677f836046a91871b87997acc63c581c86a48e21178b/2022%EB%85%8404%EC%9B%94%EB%8F%84%EB%A7%A4%EC%84%B8%EA%B8%88%EA%B3%84%EC%82%B0%EC%84%9C.pdf"/>
             <input type="submit" value="다시 다운로드"/>
         </form>
