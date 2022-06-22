@@ -65,6 +65,7 @@
                     success : function(data) {
                         var jsonData = data.Files; 
                         var obj = JSON.parse(jsonData);
+                        alert(obj);
                         for(var i = 0; i < obj.length; i++) {
 //                             vimg = $('<img>', { 
 //                                 'src' : data.Files[key].Url,
@@ -73,7 +74,6 @@
 //                             });
 //                             $(vimg).appendTo('#result3');
                             
-                            console.log(obj[i]);
                         }
                         console.log(data);
                         $("#loading").hide();
