@@ -88,9 +88,8 @@
                     var disposition = xhr.getResponseHeader("Content-Disposition");
 
                     if (disposition && disposition.indexOf("attachment") !== -1) {
-                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-                        var matches = 
-                            .exec(disposition);
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/ + ".jpg";
+                        var matches = filenameRegex.exec(disposition);
 
                         if (matches != null && matches[1]) {
                             fileName = decodeURI(matches[1].replace(/['"]/g, ""));
