@@ -62,16 +62,11 @@
                     url : "https://v2.convertapi.com/convert/pdf/to/jpg?Secret=ARqASJ2y8g0EL9Yl&StoreFile=true",
                     type : 'POST', 
                     data : formData,
-//                     xhr:function(){// Seems like the only way to get access to the xhr object
-//                         var xhr = new XMLHttpRequest();
-//                         xhr.responseType= 'blob'
-//                         return xhr;
-//                     },
-                    success : function(data, xhr) {
-//                         var img = document.getElementById('img');
-//                         var url = window.URL || window.webkitURL;
-//                         img.src = url.createObjectURL(data);
-//                         img.download = url.createObjectURL(data);
+                    success : function(data) {
+                        var obj = JSON.parse(data);
+                        $.each(obj, function(key, value){
+                            alert('key:' + key + ' / ' + 'value:' + value);
+                        });
                         console.log(data);
                         console.log(xhr);
                         $("#loading").hide();
