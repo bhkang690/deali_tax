@@ -163,13 +163,14 @@
                         for(var i = 0; i < jsonData.length; i++) {
                             vimg = $('<img>', { 
                                 'src' : jsonData[i].Url,
-                                'width' : '100%'
+                                'width' : '100%',
+                                'name' : 'ImageList' + i
                             });
                             $(vimg).appendTo('#result');
 
                             var a = $("<a>").attr("href", jsonData[i].Url).attr("id", jsonData[i].FileId).text(jsonData[i].FileName).addClass("button").append('<br />').appendTo("#download");
+                            $("#checkbox").append('<div><input type="checkbox" name="file'+ i +'" id="file' + i + '" value="' + jsonData[i].URL + '" checked><label for="file'+ i +'">' + jsonData[i].FileName + '</label></div>');
 
-                            window.location.href = jsonData[i].Url;
                             var a = "";
 
                         }
@@ -183,17 +184,55 @@
                         $("#loading").hide();
                     }
                 });
-                
+
+            var iFrameCnt = 0;
+               
+               $('.all_download').click(function(event){ //다운로드 이미지 실행
+                   
+                $('img[name*="ImageList"]').each(function(i){ //img 태그중 ImageList 명으로 시작하는 요소를 가져옴
+                    
+                       urlPath = $(this).attr("src"); //전체 URL 경로
+                       fileName = $(this).attr("src").substring($(this).attr("src").lastIndexOf("/")+1); //파일명 추출
+                       
+                       var url = urlPath;
+                                               
+                       fnCreateIframe(iFrameCnt); // 보이지 않는 iframe 생성, name는 숫자로
+                       
+                       $("iframe[name=" + iFrameCnt + "]").attr("src", url);
+                       
+                       iFrameCnt++;
+                       
+                       fnSleep(1000); //각 파일별 시간 텀을 준다
+ 
+                   });
+                   
+               });
+               
+               fnSleep = function (delay){
+                   
+                   var start = new Date().getTime();
+                   while (start + delay > new Date().getTime());
+ 
+               };
+               
+               fnCreateIframe = function (name){
+                   
+                   var frm = $('<iframe name="' + name + '" style="display: none;"></iframe>');
+                   frm.appendTo("body");
+ 
+               }
             });
         </script>
     </head>
     <body>
+        <button type="button" id="all_download" class="all_download" download>All Download</button>
         <div id="download"></div>
         <div id="result"></div>
         <form action="https://v2.convertapi.com/convert/pdf/to/jpg?Secret=ARqASJ2y8g0EL9Yl&download=attachment" id="convertapiForm" method="post" enctype="multipart/form-data">
             <input type="hidden" name="ImageResolution" value="400"/>
             <input type="hidden" name="PageRange" value="1-20"/>
             <input type="hidden" id="File" name="File"/>
+
         </form>
     </body>
 </html>
