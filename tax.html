@@ -166,16 +166,20 @@
                                 'width' : '100%'
                             });
                             $(vimg).appendTo('#result');
-                            var a = $("<a>").attr("href", jsonData[i].Url).text(jsonData[i].FileName).addClass("button").append('<br />').appendTo("#download");
-                            console.log(jsonData[i]);
+
+                            var a = $("<a>").attr("href", jsonData[i].Url).attr("id", jsonData[i].FileId).text(jsonData[i].FileName).addClass("button").append('<br />').appendTo("#download");
+
+                            window.location.href = jsonData[i].Url;
                             var a = "";
+
                         }
                         console.log(data);
                         $("#loading").hide();
                     }, // success 
 
                     error : function(xhr, status) {
-                        alert(xhr + " : " + status);
+                        alert("[" + xhr.responseJSON.Code + "] " + xhr.responseJSON.Message);
+                        console.log(xhr);
                         $("#loading").hide();
                     }
                 });
