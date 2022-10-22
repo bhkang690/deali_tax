@@ -148,7 +148,7 @@
             }
 
             if(!getParameter("apiKey")) {
-                alert('apiKey 값이 입력되지 않았습니다.');
+                alert('API Secret 값이 입력되지 않았습니다.');
             }
 
             var pdfPath = getParameter("path");
@@ -183,10 +183,13 @@
                     }, // success 
 
                     error : function(xhr, status) {
-                        if(xhr.responseJSON.Code == '4014') {
+                        if(xhr.responseJSON.Code == '4010') {
+                            alert("API Key 값이 유효하지 않습니다. 설정된 API Key 를 확인해주세요.")
+                        } if(xhr.responseJSON.Code == '4014') {
                             alert("설정된 API Key 내 Convert 한도가 초과되었습니다. Redash > Edit Visualization > JPG 파일 > URL template 내 'apiKey' 값을 변경해 주세요.")
                         } else {
-                            alert("[" + xhr.responseJSON.Code + "] " + xhr.responseJSON.Message);
+                            alert("[" + xhr.responseJSON.Code + "] " + xhr.responseJSON.Message + "\n\n정의되지 않은 오류가 발생하였습니다. https://www.convertapi.com/doc/response-codes 로 이동하여 오류 메세지를 확인해주세요.");
+                            window.open('https://www.convertapi.com/doc/response-codes');
                         }
                         console.log(xhr);
                         $("#loading").hide();
