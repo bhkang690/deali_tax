@@ -147,6 +147,10 @@
                 return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
             }
 
+            if(!getParameter(apiKey)) {
+                alert('apiKey 값이 입력되지 않았습니다.');
+            }
+
             var pdfPath = getParameter("path");
             $(document).ready(function() {
                 $('#File').val(pdfPath);
